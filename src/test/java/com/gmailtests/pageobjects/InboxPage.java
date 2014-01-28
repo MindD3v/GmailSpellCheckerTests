@@ -1,4 +1,4 @@
-package com.gmailtests.spellcheckertest;
+package com.gmailtests.pageobjects;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;

@@ -20,8 +20,9 @@ public class GmailLoginPage {
     @FindBy(using = "signIn")
     private WebElement _signIn;
     @FindBy(using = "errormsg_0_Passwd")
-    private WebElement _errorMessage;
-
+    private WebElement _errorMessagePassword;
+    @FindBy(using = "errormsg_0_Email")
+    private WebElement _errorMessageEmail;
 
     public GmailLoginPage(WebDriver webDriver) {
         _webDriver = webDriver;
@@ -53,7 +54,10 @@ public class GmailLoginPage {
         _webDriver.get("https://accounts.google.com/ServiceLogin?service=mail&continue=https://mail.google.com/mail/");
     }
 
-    public String GetErrorMessage() {
-        return _errorMessage.getText();
+    public String GetErrorMessageForPassword() {
+        return _errorMessagePassword.getText();
+    }
+    public String GetErrorMessageForEmail() {
+        return _errorMessageEmail.getText();
     }
 }

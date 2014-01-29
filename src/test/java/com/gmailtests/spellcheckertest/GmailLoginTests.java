@@ -43,7 +43,7 @@ public class GmailLoginTests {
         GmailLoginPage loginPage = PageFactory.initElements(_webDriver,GmailLoginPage.class);
         loginPage.Open();
         loginPage.LoginAs("seleniumtest.hinojosa50@gmail.com").WithPassword("95867bb.").LoginExpectingFailure();
-        Assert.assertEquals("The email or password you entered is incorrect. ?", loginPage.GetErrorMessage());
+        Assert.assertEquals("The email or password you entered is incorrect. ?", loginPage.GetErrorMessageForPassword());
     }
     @Test(description = "Try to login with invalid password")
     public void LoginAsInvalidPasswordGmail()
@@ -51,6 +51,14 @@ public class GmailLoginTests {
         GmailLoginPage loginPage = PageFactory.initElements(_webDriver,GmailLoginPage.class);
         loginPage.Open();
         loginPage.LoginAs("seleniumtest.hinojosa@gmail.com").WithPassword("95867bb..").LoginExpectingFailure();
-        Assert.assertEquals("The email or password you entered is incorrect. ?", loginPage.GetErrorMessage());
+        Assert.assertEquals("The email or password you entered is incorrect. ?", loginPage.GetErrorMessageForPassword());
+    }
+    @Test(description = "Try to login with empty fields")
+    public void LoginWithEmptyFieldsGmail()
+    {
+        GmailLoginPage loginPage = PageFactory.initElements(_webDriver,GmailLoginPage.class);
+        loginPage.Open();
+        loginPage.LoginAs("").WithPassword("").LoginExpectingFailure();
+        Assert.assertEquals("Enter your email address.", loginPage.GetErrorMessageForEmail());
     }
 }

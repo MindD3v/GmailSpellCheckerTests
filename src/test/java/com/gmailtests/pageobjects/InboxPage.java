@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 public class InboxPage {
     private WebDriver _webDriver;
 
-    @FindBy(using ="div.T-I.J-J5-Ji.T-I-KE.L3",how = How.CSS)
+    @FindBy(using =".nM .T-I.J-J5-Ji.T-I-KE.L3",how = How.CSS)
     private WebElement _compose;
     public InboxPage(WebDriver webDriver) {
         _webDriver = webDriver;

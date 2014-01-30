@@ -18,9 +18,23 @@ public class GmailSpellCheckerTests extends GmailLoggedInTests {
         Assert.assertEquals(composeEmailPages.size(), 1);
 
         ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
-        composeEmailPage.To("jhinojosa@nearsoft.com").WithSubject("Testing").WithBody("This is a testsss");
 
         composeEmailPage.ClickComposeEmailMenu();
+        Assert.assertTrue(composeEmailPage.IsSpellCheckInMenu());
+    }
+    @Test(description = "Find Spelling Errors On Email")
+    public void FindSpellingErrorsOnEmail() {
+        InboxPage inboxPage = PageFactory.initElements(_webDriver,InboxPage.class);
+        List<ComposeEmailPage> composeEmailPages = inboxPage.ComposeNewEmail();
+
+        Assert.assertEquals(composeEmailPages.size(),1);
+
+        ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
+        composeEmailPage.To("jhinojosa@nearsoft.com").WithSubject("Testing").WithBody("This is a testsss");
+        composeEmailPage.ClickComposeEmailMenu();
         composeEmailPage.ClickCheckSpelling();
+
+        List<String> spellingErrors = composeEmailPage.GetSpellingErrors();
+        Assert.assertEquals(spellingErrors.size(),1);
     }
 }

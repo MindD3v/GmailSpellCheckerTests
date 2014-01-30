@@ -13,6 +13,8 @@ public class ComposeEmailPage {
 
     private By _toLocator;
     private By _subjectLocator;
+    private By _frameLocator;
+    private By _bodyLocator;
 
     private String _id;
     public String GetId()
@@ -29,6 +31,8 @@ public class ComposeEmailPage {
 
         _toLocator = By.cssSelector("#\\"+_id+" .vO");
         _subjectLocator = By.cssSelector("#\\"+_id+" input[name=\"subjectbox\"]");
+        _frameLocator = By.cssSelector("#\\"+_id+" .Am.Al.editable iframe");
+        _bodyLocator = By.cssSelector(".editable.LW-avf");
     }
     public ComposeEmailPage To(String to) {
         GetToInput().sendKeys(to);
@@ -41,9 +45,9 @@ public class ComposeEmailPage {
     }
 
     public ComposeEmailPage WithBody(String bodyText) {
-        WebElement frame = _webDriver.findElement(By.cssSelector(".Am.Al.editable iframe"));
+        WebElement frame = _webDriver.findElement(_frameLocator);
         _webDriver.switchTo().frame(frame);
-        WebElement body = _webDriver.findElement(By.cssSelector(".editable.LW-avf"));
+        WebElement body = _webDriver.findElement(_bodyLocator);
         body.sendKeys(bodyText);
         _webDriver.switchTo().defaultContent();
         return this;
@@ -67,9 +71,9 @@ public class ComposeEmailPage {
     }
 
     public String GetEmailBody() {
-        WebElement frame = _webDriver.findElement(By.cssSelector(".Am.Al.editable iframe"));
+        WebElement frame = _webDriver.findElement(_frameLocator);
         _webDriver.switchTo().frame(frame);
-        WebElement body = _webDriver.findElement(By.cssSelector(".editable.LW-avf"));
+        WebElement body = _webDriver.findElement(_bodyLocator);
         String bodyText = body.getText();
         _webDriver.switchTo().defaultContent();
         return bodyText;

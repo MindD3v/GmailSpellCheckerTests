@@ -25,4 +25,31 @@ public class GmailComposeEmailTests extends GmailLoggedInTests {
         Assert.assertEquals(composeEmailPage.GetEmailBody(),"This is a tests");
 
     }
+    @Test(description = "Compose basic email")
+    public void ComposeMultipleEmail()
+    {
+        InboxPage inboxPage = PageFactory.initElements(_webDriver,InboxPage.class);
+       inboxPage.ComposeNewEmail();
+        inboxPage.ComposeNewEmail();
+
+        List<ComposeEmailPage> composeEmailPages = inboxPage.GetComposeEmailPages();
+        Assert.assertEquals(composeEmailPages.size(),2);
+
+        ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
+        composeEmailPage.To("jhinojosa@nearsoft.com").WithSubject("Testing").WithBody("This is a tests");
+
+        ComposeEmailPage secondComposeEmailPage = composeEmailPages.get(1);
+        secondComposeEmailPage.To("papucho@nearsoft.com").WithSubject("Papucho testing").WithBody("This is a tests for Serch");
+
+
+        Assert.assertEquals(composeEmailPage.GetRecipients(),"jhinojosa@nearsoft.com");
+        Assert.assertEquals(composeEmailPage.GetSubject(),"Testing");
+        Assert.assertEquals(composeEmailPage.GetEmailBody(),"This is a tests");
+
+        Assert.assertEquals(secondComposeEmailPage.GetRecipients(),"papucho@nearsoft.com");
+        Assert.assertEquals(secondComposeEmailPage.GetSubject(),"Papucho testing");
+        Assert.assertEquals(secondComposeEmailPage.GetEmailBody(),"This is a tests for Serch");
+
+
+    }
 }

@@ -15,6 +15,8 @@ public class ComposeEmailPage {
     private By _subjectLocator;
     private By _frameLocator;
     private By _bodyLocator;
+    private By _composeEmailMenuLocator;
+    private By _checkSpellingButtonLocator;
 
     private String _id;
     public String GetId()
@@ -25,14 +27,16 @@ public class ComposeEmailPage {
     public ComposeEmailPage(WebDriver webDriver,String id)
     {
         _webDriver = webDriver;
-        _id = id;
+        _id = "div[aria-labelledby=\""+id+"\"]";
         WebDriverWait wait = new WebDriverWait(_webDriver,50);
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("#\\"+_id+" .vO")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(_id+" .vO")));
 
-        _toLocator = By.cssSelector("#\\"+_id+" .vO");
-        _subjectLocator = By.cssSelector("#\\"+_id+" input[name=\"subjectbox\"]");
-        _frameLocator = By.cssSelector("#\\"+_id+" .Am.Al.editable iframe");
+        _toLocator = By.cssSelector(_id+" .vO");
+        _subjectLocator = By.cssSelector(_id+" input[name=\"subjectbox\"]");
+        _frameLocator = By.cssSelector(_id+" .Am.Al.editable iframe");
         _bodyLocator = By.cssSelector(".editable.LW-avf");
+        _composeEmailMenuLocator = By.cssSelector(_id+" .J-JN-M-I.J-J5-Ji.Xv.L3.T-I-ax7.T-I");
+        _checkSpellingButtonLocator = By.cssSelector(_id+" .SK.AX .J-N:last-child");
     }
     public ComposeEmailPage To(String to) {
         GetToInput().sendKeys(to);
@@ -54,7 +58,7 @@ public class ComposeEmailPage {
     }
 
     public String GetRecipients() {
-        List<WebElement> emailListWebElements = _webDriver.findElements(By.cssSelector("#\\"+_id+" .oL.aDm.az9 span"));
+        List<WebElement> emailListWebElements = _webDriver.findElements(By.cssSelector(_id+" .oL.aDm.az9 span"));
         StringBuilder emailListBuilder = new StringBuilder();
         for(int i =0; i < emailListWebElements.size(); i++)
         {
@@ -78,7 +82,15 @@ public class ComposeEmailPage {
         _webDriver.switchTo().defaultContent();
         return bodyText;
     }
+    public ComposeEmailPage ClickComposeEmailMenu() {
+        _webDriver.findElement(_composeEmailMenuLocator).click();
+        return this;
+    }
 
+    public ComposeEmailPage ClickCheckSpelling() {
+        _webDriver.findElement(_checkSpellingButtonLocator).click();
+        return this;
+    }
     private WebElement GetToInput()
     {
         return _webDriver.findElement(_toLocator);
@@ -87,4 +99,5 @@ public class ComposeEmailPage {
     {
         return _webDriver.findElement(_subjectLocator);
     }
+
 }

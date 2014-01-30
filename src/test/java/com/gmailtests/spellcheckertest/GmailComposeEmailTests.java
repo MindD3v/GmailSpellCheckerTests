@@ -25,11 +25,11 @@ public class GmailComposeEmailTests extends GmailLoggedInTests {
         Assert.assertEquals(composeEmailPage.GetEmailBody(),"This is a tests");
 
     }
-    @Test(description = "Compose basic email")
+    @Test(description = "Compose multiple email")
     public void ComposeMultipleEmail()
     {
         InboxPage inboxPage = PageFactory.initElements(_webDriver,InboxPage.class);
-       inboxPage.ComposeNewEmail();
+        inboxPage.ComposeNewEmail();
         inboxPage.ComposeNewEmail();
 
         List<ComposeEmailPage> composeEmailPages = inboxPage.GetComposeEmailPages();

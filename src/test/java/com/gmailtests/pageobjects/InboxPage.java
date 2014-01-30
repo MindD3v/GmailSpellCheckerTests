@@ -31,17 +31,17 @@ public class InboxPage {
     {
         _compose.click();
         WebDriverWait wait = new WebDriverWait(_webDriver,30);
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".aoP.aoC")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".nH .Hd")));
         GetComposeNewEmailWindows();
         return _composeEmailPages;
     }
     private void GetComposeNewEmailWindows()
     {
         _composeEmailPages.clear();
-        List<WebElement> windows = _webDriver.findElements(By.cssSelector(".aoP.aoC"));
+        List<WebElement> windows = _webDriver.findElements(By.cssSelector(".nH .Hd"));
         for(WebElement w : windows)
         {
-            ComposeEmailPage composeEmailPage = new ComposeEmailPage(_webDriver,w.getAttribute("id"));
+            ComposeEmailPage composeEmailPage = new ComposeEmailPage(_webDriver,w.getAttribute("aria-labelledby"));
             _composeEmailPages.add(composeEmailPage);
         }
     }

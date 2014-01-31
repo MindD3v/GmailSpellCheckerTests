@@ -1,6 +1,6 @@
 package com.gmailtests.spellcheckertest;
 
-import com.gmailtests.pageobjects.ComposeEmailPage;
+import com.gmailtests.pageobjects.ComposeEmailBasePage;
 import com.gmailtests.pageobjects.InboxPage;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -13,11 +13,11 @@ public class GmailComposeEmailTests extends GmailLoggedInTests {
     public void ComposeBasicEmail()
     {
         InboxPage inboxPage = PageFactory.initElements(_webDriver,InboxPage.class);
-        List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
+        List<ComposeEmailBasePage> composeEmailPages = inboxPage.composeNewEmail();
 
         Assert.assertEquals(composeEmailPages.size(),1);
 
-        ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
+        ComposeEmailBasePage composeEmailPage = composeEmailPages.get(0);
         composeEmailPage.to("jhinojosa@nearsoft.com").withSubject("Testing").withBody("This is a tests");
 
         Assert.assertEquals(composeEmailPage.getRecipients(),"jhinojosa@nearsoft.com");
@@ -32,13 +32,13 @@ public class GmailComposeEmailTests extends GmailLoggedInTests {
         inboxPage.composeNewEmail();
         inboxPage.composeNewEmail();
 
-        List<ComposeEmailPage> composeEmailPages = inboxPage.getComposeEmailPages();
+        List<ComposeEmailBasePage> composeEmailPages = inboxPage.getComposeEmailPages();
         Assert.assertEquals(composeEmailPages.size(),2);
 
-        ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
+        ComposeEmailBasePage composeEmailPage = composeEmailPages.get(0);
         composeEmailPage.to("jhinojosa@nearsoft.com").withSubject("Testing").withBody("This is a tests");
 
-        ComposeEmailPage secondComposeEmailPage = composeEmailPages.get(1);
+        ComposeEmailBasePage secondComposeEmailPage = composeEmailPages.get(1);
         secondComposeEmailPage.to("papucho@nearsoft.com").withSubject("Papucho testing").withBody("This is a tests for Serch");
 
 
@@ -54,11 +54,11 @@ public class GmailComposeEmailTests extends GmailLoggedInTests {
          public void ComposeEmailWithManyRecipients()
     {
         InboxPage inboxPage = PageFactory.initElements(_webDriver,InboxPage.class);
-        List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
+        List<ComposeEmailBasePage> composeEmailPages = inboxPage.composeNewEmail();
 
         Assert.assertEquals(composeEmailPages.size(),1);
 
-        ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
+        ComposeEmailBasePage composeEmailPage = composeEmailPages.get(0);
         composeEmailPage.to("jhinojosa@nearsoft.com").to("papucho@nearsoft.com").withSubject("Testing").withBody("This is a tests");
 
         Assert.assertEquals(composeEmailPage.getRecipients(),"jhinojosa@nearsoft.com, papucho@nearsoft.com");
@@ -70,11 +70,11 @@ public class GmailComposeEmailTests extends GmailLoggedInTests {
     public void ComposeEmailWithManyRecipientsInASingleLine()
     {
         InboxPage inboxPage = PageFactory.initElements(_webDriver,InboxPage.class);
-        List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
+        List<ComposeEmailBasePage> composeEmailPages = inboxPage.composeNewEmail();
 
         Assert.assertEquals(composeEmailPages.size(),1);
 
-        ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
+        ComposeEmailBasePage composeEmailPage = composeEmailPages.get(0);
         composeEmailPage.to("jhinojosa@nearsoft.com, papucho@nearsoft.com").withSubject("Testing").withBody("This is a tests");
 
         Assert.assertEquals(composeEmailPage.getRecipients(),"jhinojosa@nearsoft.com, papucho@nearsoft.com");

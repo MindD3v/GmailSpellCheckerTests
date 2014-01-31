@@ -6,12 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class GmailLoginPage {
-
-    private WebDriver _webDriver;
-    private WebDriverWait _wait;
+public class GmailLoginPage extends BasePageObject {
 
     @FindBy(using = "Email")
     private WebElement _email;
@@ -25,8 +21,7 @@ public class GmailLoginPage {
     private WebElement _errorMessageEmail;
 
     public GmailLoginPage(WebDriver webDriver) {
-        _webDriver = webDriver;
-        _wait = new WebDriverWait(_webDriver, 10);
+        super(webDriver);
     }
 
     public GmailLoginPage loginAs(String email) {
@@ -41,7 +36,7 @@ public class GmailLoginPage {
 
     public InboxPage login() {
         _signIn.click();
-        _wait.until(ExpectedConditions.elementToBeClickable(By.id(":3o")));
+        _webDriverWait.until(ExpectedConditions.elementToBeClickable(By.id(":3o")));
         return PageFactory.initElements(_webDriver, InboxPage.class);
     }
     public GmailLoginPage loginExpectingFailure()

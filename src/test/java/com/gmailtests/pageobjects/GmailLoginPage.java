@@ -29,35 +29,35 @@ public class GmailLoginPage {
         _wait = new WebDriverWait(_webDriver, 10);
     }
 
-    public GmailLoginPage LoginAs(String email) {
+    public GmailLoginPage loginAs(String email) {
         _email.sendKeys(email);
         return this;
     }
 
-    public GmailLoginPage WithPassword(String password) {
+    public GmailLoginPage withPassword(String password) {
         _password.sendKeys(password);
         return this;
     }
 
-    public InboxPage Login() {
+    public InboxPage login() {
         _signIn.click();
         _wait.until(ExpectedConditions.elementToBeClickable(By.id(":3o")));
         return PageFactory.initElements(_webDriver, InboxPage.class);
     }
-    public GmailLoginPage LoginExpectingFailure()
+    public GmailLoginPage loginExpectingFailure()
     {
         _signIn.click();
         return this;
     }
 
-    public void Open() {
+    public void open() {
         _webDriver.get("https://accounts.google.com/ServiceLogin?service=mail&continue=https://mail.google.com/mail/");
     }
 
-    public String GetErrorMessageForPassword() {
+    public String getErrorMessageForPassword() {
         return _errorMessagePassword.getText();
     }
-    public String GetErrorMessageForEmail() {
+    public String getErrorMessageForEmail() {
         return _errorMessageEmail.getText();
     }
 }

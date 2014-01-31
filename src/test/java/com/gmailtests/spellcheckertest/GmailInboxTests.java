@@ -13,17 +13,17 @@ public class GmailInboxTests extends GmailLoggedInTests {
     public void GetToTheComposeEmailDialog()
     {
         InboxPage inboxPage = PageFactory.initElements(_webDriver, InboxPage.class);
-        List<ComposeEmailPage> composeEmailPages = inboxPage.ComposeNewEmail();
+        List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
         Assert.assertEquals(composeEmailPages.size(),1);
     }
     @Test(description = "Get to the compose email dialog")
     public void GetToMultipleComposeEmailDialog()
     {
         InboxPage inboxPage = PageFactory.initElements(_webDriver, InboxPage.class);
-        inboxPage.ComposeNewEmail();
-        inboxPage.ComposeNewEmail();
-        List<ComposeEmailPage> composeEmailPages = inboxPage.GetComposeEmailPages();
+        inboxPage.composeNewEmail();
+        inboxPage.composeNewEmail();
+        List<ComposeEmailPage> composeEmailPages = inboxPage.getComposeEmailPages();
         Assert.assertEquals(composeEmailPages.size(),2);
-        Assert.assertNotEquals(composeEmailPages.get(0).GetId(),composeEmailPages.get(1).GetId());
+        Assert.assertNotEquals(composeEmailPages.get(0).getId(),composeEmailPages.get(1).getId());
     }
 }

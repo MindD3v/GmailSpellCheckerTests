@@ -21,7 +21,7 @@ public class ComposeEmailPage {
     private By _spellingErrorsLocator;
 
     private String _id;
-    public String GetId()
+    public String getId()
     {
         return _id;
     }
@@ -41,17 +41,17 @@ public class ComposeEmailPage {
         _composeEmailMenuLocator = By.cssSelector(_id+" .J-JN-M-I.J-J5-Ji.Xv.L3.T-I-ax7.T-I");
         _checkSpellingButtonLocator = By.cssSelector(_id+" .SK.AX .J-N:last-child");
     }
-    public ComposeEmailPage To(String to) {
-        GetToInput().sendKeys(to);
+    public ComposeEmailPage to(String to) {
+            getToInput().sendKeys(to + ",");
         return this;
     }
 
-    public ComposeEmailPage WithSubject(String subject) {
-        GetSubjectInput().sendKeys(subject);
+    public ComposeEmailPage withSubject(String subject) {
+            getSubjectInput().sendKeys(subject);
         return this;
     }
 
-    public ComposeEmailPage WithBody(String bodyText) {
+    public ComposeEmailPage withBody(String bodyText) {
         WebElement frame = _webDriver.findElement(_frameLocator);
         _webDriver.switchTo().frame(frame);
         WebElement body = _webDriver.findElement(_bodyLocator);
@@ -60,24 +60,24 @@ public class ComposeEmailPage {
         return this;
     }
 
-    public String GetRecipients() {
+    public String getRecipients() {
         List<WebElement> emailListWebElements = _webDriver.findElements(By.cssSelector(_id+" .oL.aDm.az9 span"));
         StringBuilder emailListBuilder = new StringBuilder();
         for(int i =0; i < emailListWebElements.size(); i++)
         {
             if(i != 0)
                 emailListBuilder.append(", ");
-            emailListBuilder.append(emailListWebElements.get(0).getText());
+            emailListBuilder.append(emailListWebElements.get(i).getText());
         }
 
         return emailListBuilder.toString();
     }
 
-    public String GetSubject() {
-        return GetSubjectInput().getAttribute("value");
+    public String getSubject() {
+        return getSubjectInput().getAttribute("value");
     }
 
-    public String GetEmailBody() {
+    public String getEmailBody() {
         WebElement frame = _webDriver.findElement(_frameLocator);
         _webDriver.switchTo().frame(frame);
         WebElement body = _webDriver.findElement(_bodyLocator);
@@ -85,30 +85,30 @@ public class ComposeEmailPage {
         _webDriver.switchTo().defaultContent();
         return bodyText;
     }
-    public boolean IsSpellCheckInMenu()
+    public boolean isSpellCheckInMenu()
     {
         WebElement checkSpellMenu = _webDriver.findElement(_checkSpellingButtonLocator);
         return checkSpellMenu != null && checkSpellMenu.getText().equals("Check spelling");
     }
-    public ComposeEmailPage ClickComposeEmailMenu() {
+    public ComposeEmailPage clickComposeEmailMenu() {
         _webDriver.findElement(_composeEmailMenuLocator).click();
         return this;
     }
 
-    public ComposeEmailPage ClickCheckSpelling(){
+    public ComposeEmailPage clickCheckSpelling(){
         _webDriver.findElement(_checkSpellingButtonLocator).click();
         return this;
     }
-    private WebElement GetToInput()
+    private WebElement getToInput()
     {
         return _webDriver.findElement(_toLocator);
     }
-    private WebElement GetSubjectInput()
+    private WebElement getSubjectInput()
     {
         return _webDriver.findElement(_subjectLocator);
     }
 
-    public List<String> GetSpellingErrors() {
+    public List<String> getSpellingErrors() {
         List<String> spellingErrorsStrings = new ArrayList<String>();
         WebElement frame = _webDriver.findElement(_frameLocator);
         _webDriver.switchTo().frame(frame);

@@ -13,28 +13,28 @@ public class GmailSpellCheckerTests extends GmailLoggedInTests {
     public void GetToTheSpellCheckerMenu()
     {
         InboxPage inboxPage = PageFactory.initElements(_webDriver, InboxPage.class);
-        List<ComposeEmailPage> composeEmailPages = inboxPage.ComposeNewEmail();
+        List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
 
         Assert.assertEquals(composeEmailPages.size(), 1);
 
         ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
 
-        composeEmailPage.ClickComposeEmailMenu();
-        Assert.assertTrue(composeEmailPage.IsSpellCheckInMenu());
+        composeEmailPage.clickComposeEmailMenu();
+        Assert.assertTrue(composeEmailPage.isSpellCheckInMenu());
     }
     @Test(description = "Find Spelling Errors On Email")
     public void FindSpellingErrorsOnEmail() {
         InboxPage inboxPage = PageFactory.initElements(_webDriver,InboxPage.class);
-        List<ComposeEmailPage> composeEmailPages = inboxPage.ComposeNewEmail();
+        List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
 
         Assert.assertEquals(composeEmailPages.size(),1);
 
         ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
-        composeEmailPage.To("jhinojosa@nearsoft.com").WithSubject("Testing").WithBody("This is a testsss");
-        composeEmailPage.ClickComposeEmailMenu();
-        composeEmailPage.ClickCheckSpelling();
+        composeEmailPage.to("jhinojosa@nearsoft.com").withSubject("Testing").withBody("This is a testsss");
+        composeEmailPage.clickComposeEmailMenu();
+        composeEmailPage.clickCheckSpelling();
 
-        List<String> spellingErrors = composeEmailPage.GetSpellingErrors();
+        List<String> spellingErrors = composeEmailPage.getSpellingErrors();
         Assert.assertEquals(spellingErrors.size(),1);
     }
 }

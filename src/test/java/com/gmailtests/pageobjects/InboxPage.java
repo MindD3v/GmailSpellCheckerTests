@@ -16,7 +16,7 @@ public class InboxPage {
 
     private List<ComposeEmailPage> _composeEmailPages;
 
-    public List<ComposeEmailPage> GetComposeEmailPages()
+    public List<ComposeEmailPage> getComposeEmailPages()
     {
         return _composeEmailPages;
     }
@@ -27,15 +27,15 @@ public class InboxPage {
         _composeEmailPages = new ArrayList<ComposeEmailPage>();
         _webDriver = webDriver;
     }
-    public List<ComposeEmailPage> ComposeNewEmail()
+    public List<ComposeEmailPage> composeNewEmail()
     {
         _compose.click();
         WebDriverWait wait = new WebDriverWait(_webDriver,30);
         wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".nH .Hd")));
-        GetComposeNewEmailWindows();
+        getComposeNewEmailWindows();
         return _composeEmailPages;
     }
-    private void GetComposeNewEmailWindows()
+    private void getComposeNewEmailWindows()
     {
         _composeEmailPages.clear();
         List<WebElement> windows = _webDriver.findElements(By.cssSelector(".nH .Hd"));

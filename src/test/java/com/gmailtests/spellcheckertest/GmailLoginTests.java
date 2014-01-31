@@ -26,39 +26,39 @@ public class GmailLoginTests {
     public void LaunchGmailLoginTest()
     {
         GmailLoginPage loginPage = PageFactory.initElements(_webDriver,GmailLoginPage.class);
-        loginPage.Open();
+        loginPage.open();
         Assert.assertEquals("Gmail",_webDriver.getTitle());
     }
-    @Test(description = "Login into gmail")
+    @Test(description = "login into gmail")
     public void LoginAsValidUserGmail()
     {
         GmailLoginPage loginPage = PageFactory.initElements(_webDriver,GmailLoginPage.class);
-        loginPage.Open();
-        loginPage.LoginAs("seleniumtest.hinojosa@gmail.com").WithPassword("95867bb.").Login();
+        loginPage.open();
+        loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
         Assert.assertEquals("Inbox - seleniumtest.hinojosa@gmail.com - Gmail", _webDriver.getTitle());
     }
     @Test(description = "Try to login with invalid user")
     public void LoginAsInvalidUserGmail()
     {
         GmailLoginPage loginPage = PageFactory.initElements(_webDriver,GmailLoginPage.class);
-        loginPage.Open();
-        loginPage.LoginAs("seleniumtest.hinojosa50@gmail.com").WithPassword("95867bb.").LoginExpectingFailure();
-        Assert.assertEquals("The email or password you entered is incorrect. ?", loginPage.GetErrorMessageForPassword());
+        loginPage.open();
+        loginPage.loginAs("seleniumtest.hinojosa50@gmail.com").withPassword("95867bb.").loginExpectingFailure();
+        Assert.assertEquals("The email or password you entered is incorrect. ?", loginPage.getErrorMessageForPassword());
     }
     @Test(description = "Try to login with invalid password")
     public void LoginAsInvalidPasswordGmail()
     {
         GmailLoginPage loginPage = PageFactory.initElements(_webDriver,GmailLoginPage.class);
-        loginPage.Open();
-        loginPage.LoginAs("seleniumtest.hinojosa@gmail.com").WithPassword("95867bb..").LoginExpectingFailure();
-        Assert.assertEquals("The email or password you entered is incorrect. ?", loginPage.GetErrorMessageForPassword());
+        loginPage.open();
+        loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb..").loginExpectingFailure();
+        Assert.assertEquals("The email or password you entered is incorrect. ?", loginPage.getErrorMessageForPassword());
     }
     @Test(description = "Try to login with empty fields")
     public void LoginWithEmptyFieldsGmail()
     {
         GmailLoginPage loginPage = PageFactory.initElements(_webDriver,GmailLoginPage.class);
-        loginPage.Open();
-        loginPage.LoginAs("").WithPassword("").LoginExpectingFailure();
-        Assert.assertEquals("Enter your email address.", loginPage.GetErrorMessageForEmail());
+        loginPage.open();
+        loginPage.loginAs("").withPassword("").loginExpectingFailure();
+        Assert.assertEquals("Enter your email address.", loginPage.getErrorMessageForEmail());
     }
 }

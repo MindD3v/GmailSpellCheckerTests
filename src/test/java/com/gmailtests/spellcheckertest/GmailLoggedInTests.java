@@ -14,8 +14,8 @@ public abstract class GmailLoggedInTests {
     {
         _webDriver = new FirefoxDriver();
         GmailLoginPage loginPage = PageFactory.initElements(_webDriver, GmailLoginPage.class);
-        loginPage.Open();
-        loginPage.LoginAs("seleniumtest.hinojosa@gmail.com").WithPassword("95867bb.").Login();
+        loginPage.open();
+        loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
     }
     @AfterTest
     public void CleanUp()

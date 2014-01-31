@@ -13,43 +13,73 @@ public class GmailComposeEmailTests extends GmailLoggedInTests {
     public void ComposeBasicEmail()
     {
         InboxPage inboxPage = PageFactory.initElements(_webDriver,InboxPage.class);
-        List<ComposeEmailPage> composeEmailPages = inboxPage.ComposeNewEmail();
+        List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
 
         Assert.assertEquals(composeEmailPages.size(),1);
 
         ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
-        composeEmailPage.To("jhinojosa@nearsoft.com").WithSubject("Testing").WithBody("This is a tests");
+        composeEmailPage.to("jhinojosa@nearsoft.com").withSubject("Testing").withBody("This is a tests");
 
-        Assert.assertEquals(composeEmailPage.GetRecipients(),"jhinojosa@nearsoft.com");
-        Assert.assertEquals(composeEmailPage.GetSubject(),"Testing");
-        Assert.assertEquals(composeEmailPage.GetEmailBody(),"This is a tests");
+        Assert.assertEquals(composeEmailPage.getRecipients(),"jhinojosa@nearsoft.com");
+        Assert.assertEquals(composeEmailPage.getSubject(),"Testing");
+        Assert.assertEquals(composeEmailPage.getEmailBody(),"This is a tests");
 
     }
     @Test(description = "Compose multiple email")
     public void ComposeMultipleEmail()
     {
         InboxPage inboxPage = PageFactory.initElements(_webDriver,InboxPage.class);
-        inboxPage.ComposeNewEmail();
-        inboxPage.ComposeNewEmail();
+        inboxPage.composeNewEmail();
+        inboxPage.composeNewEmail();
 
-        List<ComposeEmailPage> composeEmailPages = inboxPage.GetComposeEmailPages();
+        List<ComposeEmailPage> composeEmailPages = inboxPage.getComposeEmailPages();
         Assert.assertEquals(composeEmailPages.size(),2);
 
         ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
-        composeEmailPage.To("jhinojosa@nearsoft.com").WithSubject("Testing").WithBody("This is a tests");
+        composeEmailPage.to("jhinojosa@nearsoft.com").withSubject("Testing").withBody("This is a tests");
 
         ComposeEmailPage secondComposeEmailPage = composeEmailPages.get(1);
-        secondComposeEmailPage.To("papucho@nearsoft.com").WithSubject("Papucho testing").WithBody("This is a tests for Serch");
+        secondComposeEmailPage.to("papucho@nearsoft.com").withSubject("Papucho testing").withBody("This is a tests for Serch");
 
 
-        Assert.assertEquals(composeEmailPage.GetRecipients(),"jhinojosa@nearsoft.com");
-        Assert.assertEquals(composeEmailPage.GetSubject(),"Testing");
-        Assert.assertEquals(composeEmailPage.GetEmailBody(),"This is a tests");
+        Assert.assertEquals(composeEmailPage.getRecipients(),"jhinojosa@nearsoft.com");
+        Assert.assertEquals(composeEmailPage.getSubject(),"Testing");
+        Assert.assertEquals(composeEmailPage.getEmailBody(),"This is a tests");
 
-        Assert.assertEquals(secondComposeEmailPage.GetRecipients(),"papucho@nearsoft.com");
-        Assert.assertEquals(secondComposeEmailPage.GetSubject(),"Papucho testing");
-        Assert.assertEquals(secondComposeEmailPage.GetEmailBody(),"This is a tests for Serch");
+        Assert.assertEquals(secondComposeEmailPage.getRecipients(),"papucho@nearsoft.com");
+        Assert.assertEquals(secondComposeEmailPage.getSubject(),"Papucho testing");
+        Assert.assertEquals(secondComposeEmailPage.getEmailBody(),"This is a tests for Serch");
+    }
+    @Test(description = "Compose Email With Many Recipients")
+         public void ComposeEmailWithManyRecipients()
+    {
+        InboxPage inboxPage = PageFactory.initElements(_webDriver,InboxPage.class);
+        List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
 
+        Assert.assertEquals(composeEmailPages.size(),1);
+
+        ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
+        composeEmailPage.to("jhinojosa@nearsoft.com").to("papucho@nearsoft.com").withSubject("Testing").withBody("This is a tests");
+
+        Assert.assertEquals(composeEmailPage.getRecipients(),"jhinojosa@nearsoft.com, papucho@nearsoft.com");
+        Assert.assertEquals(composeEmailPage.getSubject(),"Testing");
+        Assert.assertEquals(composeEmailPage.getEmailBody(),"This is a tests");
+
+    }
+    @Test(description = "Compose Email With Many Recipients In a Single Line")
+    public void ComposeEmailWithManyRecipientsInASingleLine()
+    {
+        InboxPage inboxPage = PageFactory.initElements(_webDriver,InboxPage.class);
+        List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
+
+        Assert.assertEquals(composeEmailPages.size(),1);
+
+        ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
+        composeEmailPage.to("jhinojosa@nearsoft.com, papucho@nearsoft.com").withSubject("Testing").withBody("This is a tests");
+
+        Assert.assertEquals(composeEmailPage.getRecipients(),"jhinojosa@nearsoft.com, papucho@nearsoft.com");
+        Assert.assertEquals(composeEmailPage.getSubject(),"Testing");
+        Assert.assertEquals(composeEmailPage.getEmailBody(),"This is a tests");
 
     }
 }

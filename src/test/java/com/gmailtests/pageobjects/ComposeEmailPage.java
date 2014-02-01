@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComposeEmailBasePage extends BasePageObject {
+public class ComposeEmailPage extends BasePageObject {
 
     private By _toLocator;
     private By _subjectLocator;
@@ -17,6 +17,7 @@ public class ComposeEmailBasePage extends BasePageObject {
     private By _composeEmailMenuLocator;
     private By _checkSpellingButtonLocator;
     private By _spellingErrorsLocator;
+    private By _recheckSpellingButtonLocator;
 
     private String _id;
     public String getId()
@@ -24,7 +25,7 @@ public class ComposeEmailBasePage extends BasePageObject {
         return _id;
     }
 
-    public ComposeEmailBasePage(WebDriver webDriver, String id){
+    public ComposeEmailPage(WebDriver webDriver, String id){
         super(webDriver);
         _id = "div[aria-labelledby=\""+id+"\"]";
         _webDriverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(_id + " .vO")));
@@ -39,18 +40,20 @@ public class ComposeEmailBasePage extends BasePageObject {
         _spellingErrorsLocator = By.cssSelector(".J-JK9eJ-PJVNOc");
         _composeEmailMenuLocator = By.cssSelector(_id+" .J-JN-M-I.J-J5-Ji.Xv.L3.T-I-ax7.T-I");
         _checkSpellingButtonLocator = By.cssSelector(_id+" .SK.AX .J-N:last-child");
+        _recheckSpellingButtonLocator = By.cssSelector(_id+" .T-I.J-J5-Ji.aDs.T-I-Js-IF.T-I-ax7.L3");
+        
     }
-    public ComposeEmailBasePage to(String to) {
+    public ComposeEmailPage to(String to) {
             getToInput().sendKeys(to + ",");
         return this;
     }
 
-    public ComposeEmailBasePage withSubject(String subject) {
+    public ComposeEmailPage withSubject(String subject) {
             getSubjectInput().sendKeys(subject);
         return this;
     }
 
-    public ComposeEmailBasePage withBody(String bodyText) {
+    public ComposeEmailPage withBody(String bodyText) {
         WebElement frame = _webDriver.findElement(_frameLocator);
         _webDriver.switchTo().frame(frame);
         WebElement body = _webDriver.findElement(_bodyLocator);
@@ -87,7 +90,11 @@ public class ComposeEmailBasePage extends BasePageObject {
 
     public ComposeEmailMenu clickMoreOptionsMenu() {
         _webDriver.findElement(_composeEmailMenuLocator).click();
-        return new ComposeEmailMenu(_webDriver);
+        return new ComposeEmailMenu(_webDriver,this);
+    }
+    public ComposeEmailPage clickReCheckSpelling(){
+        _webDriver.findElement(_recheckSpellingButtonLocator).click();
+        return this;
     }
 
     private WebElement getToInput(){
@@ -98,35 +105,40 @@ public class ComposeEmailBasePage extends BasePageObject {
         return _webDriver.findElement(_subjectLocator);
     }
 
+    public List<String> getSpellingErrors() throws InterruptedException {
+        List<String> spellingErrorsStrings = new ArrayList<String>();
+        WebElement frame = _webDriver.findElement(_frameLocator);
+        _webDriver.switchTo().frame(frame);
+        WebElement body = _webDriver.findElement(_bodyLocator);
+
+        Thread.sleep(2000); //don't like
+        _webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(_spellingErrorsLocator));
+
+        List<WebElement> spellingErrors = body.findElements(_spellingErrorsLocator);
+
+        for(WebElement spellingError : spellingErrors)
+        {
+            spellingErrorsStrings.add(spellingError.getText());
+        }
+        _webDriver.switchTo().defaultContent();
+
+
+        return spellingErrorsStrings;
+    }
+
     public class ComposeEmailMenu {
         private WebDriver _webDriver;
-        public ComposeEmailMenu(WebDriver webDriver)
+        private ComposeEmailPage _composeEmailPage;
+        public ComposeEmailMenu(WebDriver webDriver, ComposeEmailPage owner)
         {
             _webDriver = webDriver;
+            _composeEmailPage = owner;
         }
-        public ComposeEmailMenu clickCheckSpelling(){
+        public ComposeEmailPage clickCheckSpelling(){
             _webDriver.findElement(_checkSpellingButtonLocator).click();
-            return this;
+            return _composeEmailPage;
         }
-        public List<String> getSpellingErrors() {
-            List<String> spellingErrorsStrings = new ArrayList<String>();
-            WebElement frame = _webDriver.findElement(_frameLocator);
-            _webDriver.switchTo().frame(frame);
-            WebElement body = _webDriver.findElement(_bodyLocator);
 
-            _webDriverWait.until(ExpectedConditions.elementToBeClickable(_spellingErrorsLocator));
-
-            List<WebElement> spellingErrors = body.findElements(_spellingErrorsLocator);
-
-            for(WebElement spellingError : spellingErrors)
-            {
-                spellingErrorsStrings.add(spellingError.getText());
-            }
-            _webDriver.switchTo().defaultContent();
-
-
-            return spellingErrorsStrings;
-        }
         public boolean isSpellCheckInMenu(){
             WebElement checkSpellMenu = _webDriver.findElement(_checkSpellingButtonLocator);
             return checkSpellMenu != null && checkSpellMenu.getText().equals("Check spelling");

@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class InboxPage extends BasePageObject {
-    private List<ComposeEmailBasePage> _composeEmailPages;
+    private List<ComposeEmailPage> _composeEmailPages;
 
-    public List<ComposeEmailBasePage> getComposeEmailPages()
+    public List<ComposeEmailPage> getComposeEmailPages()
     {
         return _composeEmailPages;
     }
@@ -23,9 +23,9 @@ public class InboxPage extends BasePageObject {
 
     public InboxPage(WebDriver webDriver) {
         super(webDriver);
-        _composeEmailPages = new ArrayList<ComposeEmailBasePage>();
+        _composeEmailPages = new ArrayList<ComposeEmailPage>();
     }
-    public List<ComposeEmailBasePage> composeNewEmail()
+    public List<ComposeEmailPage> composeNewEmail()
     {
         _compose.click();
         _webDriverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".nH .Hd")));
@@ -38,7 +38,7 @@ public class InboxPage extends BasePageObject {
         List<WebElement> windows = _webDriver.findElements(By.cssSelector(".nH .Hd"));
         for(WebElement w : windows)
         {
-            ComposeEmailBasePage composeEmailPage = new ComposeEmailBasePage(_webDriver,w.getAttribute("aria-labelledby"));
+            ComposeEmailPage composeEmailPage = new ComposeEmailPage(_webDriver,w.getAttribute("aria-labelledby"));
             _composeEmailPages.add(composeEmailPage);
         }
     }

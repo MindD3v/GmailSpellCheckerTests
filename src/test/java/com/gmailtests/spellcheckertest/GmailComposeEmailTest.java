@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.testng.Assert.assertEquals;
 
-public class GmailComposeEmailTests extends GmailLoggedInTests {
+public class GmailComposeEmailTest extends GmailLoggedInSetup {
     @Test(description = "Compose basic email")
     public void ComposeBasicEmail()
     {

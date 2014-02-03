@@ -10,7 +10,7 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class GmailSpellCheckerTests extends GmailLoggedInTests {
+public class GmailSpellCheckerTest extends GmailLoggedInSetup {
     @Test(description = "Get to the spellchecker menu")
     public void GetToTheSpellCheckerMenu()
     {

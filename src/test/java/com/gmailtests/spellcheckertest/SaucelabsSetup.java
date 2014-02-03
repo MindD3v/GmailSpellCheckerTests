@@ -1,32 +1,28 @@
 package com.gmailtests.spellcheckertest;
 
-import com.gmailtests.pageobjects.GmailLoginPage;
 import com.saucelabs.common.SauceOnDemandAuthentication;
 import com.saucelabs.common.SauceOnDemandSessionIdProvider;
 import com.saucelabs.testng.SauceOnDemandAuthenticationProvider;
 import com.saucelabs.testng.SauceOnDemandTestListener;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.*;
 
 import java.lang.reflect.Method;
 import java.net.URL;
 
 @Listeners({SauceOnDemandTestListener.class})
-public abstract class GmailLoggedInTests implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
+public abstract class SauceLabsSetup implements SauceOnDemandSessionIdProvider, SauceOnDemandAuthenticationProvider {
+    protected SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("jhinojosa-nearsoft", "5d37527e-328a-4330-b8c1-fa0e6905a769");
 
-    private SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("jhinojosa-nearsoft", "5d37527e-328a-4330-b8c1-fa0e6905a769");
-
-    private ThreadLocal<WebDriver> _webDriver = new ThreadLocal<WebDriver>();
-    private ThreadLocal<String> sessionId = new ThreadLocal<String>();
+    protected ThreadLocal<WebDriver> _webDriver = new ThreadLocal<WebDriver>();
+    protected ThreadLocal<String> sessionId = new ThreadLocal<String>();
 
     @Parameters({"username", "key", "os", "browser", "browserVersion"})
     @BeforeMethod
-    public void setUp(@Optional("jhinojosa-nearsoft") String username,
+    protected void setUp(@Optional("jhinojosa-nearsoft") String username,
                       @Optional("5d37527e-328a-4330-b8c1-fa0e6905a769") String key,
                       @Optional("XP") String os,
                       @Optional("firefox") String browser,
@@ -43,33 +39,27 @@ public abstract class GmailLoggedInTests implements SauceOnDemandSessionIdProvid
         _webDriver.set(new RemoteWebDriver(
                 new URL("http://" + authentication.getUsername() + ":" + authentication.getAccessKey() + "@ondemand.saucelabs.com:80/wd/hub"),
                 capabilities));
-         sessionId.set(((RemoteWebDriver) getWebDriver()).getSessionId().toString());
-
-        GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(), GmailLoginPage.class);
-        loginPage.open();
-        loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
+        sessionId.set(((RemoteWebDriver) getWebDriver()).getSessionId().toString());
     }
-//    @BeforeMethod
-//    public void setUp() {
-//        _webDriver = new FirefoxDriver();
-//        GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(), GmailLoginPage.class);
-//        loginPage.open();
-//        loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
-//    }
-
-    @AfterMethod
-    public void CleanUp() {
-        getWebDriver().quit();
-    }
-
     public WebDriver getWebDriver() {
         return _webDriver.get();
     }
     public String getSessionId() {
         return sessionId.get();
     }
+    @AfterMethod
+    protected void CleanUp() {
+        getWebDriver().quit();
+    }
     @Override
     public SauceOnDemandAuthentication getAuthentication() {
         return authentication;
     }
+    //    @BeforeMethod
+//    public void setUp() {
+//        _webDriver = new FirefoxDriver();
+//        GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(), GmailLoginPage.class);
+//        loginPage.open();
+//        loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
+//    }
 }

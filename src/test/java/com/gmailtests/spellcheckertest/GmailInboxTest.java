@@ -10,7 +10,7 @@ import java.util.List;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotEquals;
 
-public class GmailInboxTests extends GmailLoggedInTests {
+public class GmailInboxTest extends GmailLoggedInSetup {
     @Test(description = "Get to the compose email dialog")
     public void GetToTheComposeEmailDialog()
     {

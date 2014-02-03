@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class GmailSpellCheckerTest extends GmailLoggedInSetup {
     @Test(description = "Get to the spellchecker menu")
@@ -17,7 +17,7 @@ public class GmailSpellCheckerTest extends GmailLoggedInSetup {
         ComposeEmailPage composeEmailPage = SetupForOneEmail();
         ComposeEmailPage.ComposeEmailMenu menu = composeEmailPage.clickMoreOptionsMenu();
 
-        assertTrue(menu.isSpellCheckInMenu());
+        assertThat(menu.isSpellCheckInMenu(),equalTo(true));
     }
     @Test(description = "Find Spelling Errors On Email")
     public void FindSpellingErrorsOnEmail() throws InterruptedException {
@@ -26,7 +26,7 @@ public class GmailSpellCheckerTest extends GmailLoggedInSetup {
         composeEmailPage.to("jhinojosa@nearsoft.com").withSubject("Testing").withBody("This is a testsss");
         List<String> spellingErrors = composeEmailPage.clickMoreOptionsMenu().clickCheckSpelling().getSpellingErrors();
 
-        assertEquals(spellingErrors.size(), 1);
+        assertThat(spellingErrors.size(), equalTo(1));
     }
     @Test(description = "Find Multiple Spelling Errors On Email")
     public void FindMultipleSpellingErrorsOnEmail() throws InterruptedException {
@@ -35,7 +35,7 @@ public class GmailSpellCheckerTest extends GmailLoggedInSetup {
         composeEmailPage.to("jhinojosa@nearsoft.com").withSubject("Testing").withBody("This is a testsss for my friendz");
         List<String> spellingErrors = composeEmailPage.clickMoreOptionsMenu().clickCheckSpelling().getSpellingErrors();
 
-        assertEquals(spellingErrors.size(), 2);
+        assertThat(spellingErrors.size(), equalTo(2));
     }
     @Test(description = "Find Spelling Errors On Email And Recheck")
     public void FindSpellingErrorsOnEmailAndRecheck() throws InterruptedException {
@@ -44,19 +44,19 @@ public class GmailSpellCheckerTest extends GmailLoggedInSetup {
         composeEmailPage.to("jhinojosa@nearsoft.com").withSubject("Testing").withBody("This is a testsss,");
         List<String> spellingErrors = composeEmailPage.clickMoreOptionsMenu().clickCheckSpelling().getSpellingErrors();
 
-        assertEquals(spellingErrors.size(), 1);
+        assertThat(spellingErrors.size(), equalTo(1));
 
         composeEmailPage.withBody(" for my friendz");
         spellingErrors = composeEmailPage.clickReCheckSpelling().getSpellingErrors();
 
-        assertEquals(spellingErrors.size(), 2);
+        assertThat(spellingErrors.size(), equalTo(2));
     }
     private ComposeEmailPage SetupForOneEmail()
     {
         InboxPage inboxPage = PageFactory.initElements(getWebDriver(),InboxPage.class);
         List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
 
-        assertEquals(composeEmailPages.size(), 1);
+        assertThat(composeEmailPages.size(), equalTo(1));
 
         return composeEmailPages.get(0);
     }

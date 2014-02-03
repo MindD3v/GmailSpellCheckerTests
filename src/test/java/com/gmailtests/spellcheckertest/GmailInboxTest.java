@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertNotEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class GmailInboxTest extends GmailLoggedInSetup {
     @Test(description = "Get to the compose email dialog")
@@ -16,7 +16,7 @@ public class GmailInboxTest extends GmailLoggedInSetup {
     {
         InboxPage inboxPage = PageFactory.initElements(getWebDriver(), InboxPage.class);
         List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
-        assertEquals(composeEmailPages.size(), 1);
+        assertThat(composeEmailPages.size(), equalTo(1));
     }
     @Test(description = "Get multiple compose email dialog")
     public void GetToMultipleComposeEmailDialog()
@@ -26,7 +26,7 @@ public class GmailInboxTest extends GmailLoggedInSetup {
         inboxPage.composeNewEmail();
         List<ComposeEmailPage> composeEmailPages = inboxPage.getComposeEmailPages();
 
-        assertEquals(composeEmailPages.size(), 2);
-        assertNotEquals(composeEmailPages.get(0).getId(), composeEmailPages.get(1).getId());
+        assertThat(composeEmailPages.size(), equalTo(2));
+        assertThat(composeEmailPages.get(0).getId(), not(equalTo(composeEmailPages.get(1).getId())));
     }
 }

@@ -4,7 +4,8 @@ import com.gmailtests.pageobjects.GmailLoginPage;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 
 public class GmailLoginTest extends SauceLabsSetup {
 
@@ -14,7 +15,7 @@ public class GmailLoginTest extends SauceLabsSetup {
         GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(),GmailLoginPage.class);
         loginPage.open();
 
-        assertEquals("Gmail", getWebDriver().getTitle());
+        assertThat("Is at login page",getWebDriver().getTitle(),equalTo("Gmail"));
     }
     @Test(description = "Login into gmail")
     public void LoginAsValidUserGmail()
@@ -23,7 +24,7 @@ public class GmailLoginTest extends SauceLabsSetup {
         loginPage.open();
         loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
 
-        assertEquals("Inbox - seleniumtest.hinojosa@gmail.com - Gmail", getWebDriver().getTitle());
+        assertThat("User logged in",getWebDriver().getTitle(),equalTo("Inbox - seleniumtest.hinojosa@gmail.com - Gmail"));
     }
     @Test(description = "Try to login with invalid user")
     public void LoginAsInvalidUserGmail()
@@ -32,7 +33,7 @@ public class GmailLoginTest extends SauceLabsSetup {
         loginPage.open();
         loginPage.loginAs("seleniumtest.hinojosa50@gmail.com").withPassword("95867bb.").loginExpectingFailure();
 
-        assertEquals("The email or password you entered is incorrect. ?", loginPage.getErrorMessageForPassword());
+        assertThat("User login with invalid username",loginPage.getErrorMessageForPassword(),equalTo("The email or password you entered is incorrect. ?"));
     }
     @Test(description = "Try to login with invalid password")
     public void LoginAsInvalidPasswordGmail()
@@ -41,7 +42,7 @@ public class GmailLoginTest extends SauceLabsSetup {
         loginPage.open();
         loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb..").loginExpectingFailure();
 
-        assertEquals("The email or password you entered is incorrect. ?", loginPage.getErrorMessageForPassword());
+        assertThat("User login with invalid password",loginPage.getErrorMessageForPassword(),equalTo("The email or password you entered is incorrect. ?"));
     }
     @Test(description = "Try to login with empty fields")
     public void LoginWithEmptyFieldsGmail()
@@ -50,6 +51,6 @@ public class GmailLoginTest extends SauceLabsSetup {
         loginPage.open();
         loginPage.loginAs("").withPassword("").loginExpectingFailure();
 
-        assertEquals("Enter your email address.", loginPage.getErrorMessageForEmail());
+        assertThat("User login with empty fields",loginPage.getErrorMessageForEmail(),equalTo("Enter your email address."));
     }
 }

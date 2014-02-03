@@ -4,10 +4,11 @@ import com.gmailtests.pageobjects.GmailLoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import static org.testng.Assert.assertEquals;
 
 public class GmailLoginTests {
 
@@ -27,15 +28,17 @@ public class GmailLoginTests {
     {
         GmailLoginPage loginPage = PageFactory.initElements(_webDriver,GmailLoginPage.class);
         loginPage.open();
-        Assert.assertEquals("Gmail",_webDriver.getTitle());
+
+        assertEquals("Gmail", _webDriver.getTitle());
     }
-    @Test(description = "login into gmail")
+    @Test(description = "Login into gmail")
     public void LoginAsValidUserGmail()
     {
         GmailLoginPage loginPage = PageFactory.initElements(_webDriver,GmailLoginPage.class);
         loginPage.open();
         loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
-        Assert.assertEquals("Inbox - seleniumtest.hinojosa@gmail.com - Gmail", _webDriver.getTitle());
+
+        assertEquals("Inbox - seleniumtest.hinojosa@gmail.com - Gmail", _webDriver.getTitle());
     }
     @Test(description = "Try to login with invalid user")
     public void LoginAsInvalidUserGmail()
@@ -43,7 +46,8 @@ public class GmailLoginTests {
         GmailLoginPage loginPage = PageFactory.initElements(_webDriver,GmailLoginPage.class);
         loginPage.open();
         loginPage.loginAs("seleniumtest.hinojosa50@gmail.com").withPassword("95867bb.").loginExpectingFailure();
-        Assert.assertEquals("The email or password you entered is incorrect. ?", loginPage.getErrorMessageForPassword());
+
+        assertEquals("The email or password you entered is incorrect. ?", loginPage.getErrorMessageForPassword());
     }
     @Test(description = "Try to login with invalid password")
     public void LoginAsInvalidPasswordGmail()
@@ -51,7 +55,8 @@ public class GmailLoginTests {
         GmailLoginPage loginPage = PageFactory.initElements(_webDriver,GmailLoginPage.class);
         loginPage.open();
         loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb..").loginExpectingFailure();
-        Assert.assertEquals("The email or password you entered is incorrect. ?", loginPage.getErrorMessageForPassword());
+
+        assertEquals("The email or password you entered is incorrect. ?", loginPage.getErrorMessageForPassword());
     }
     @Test(description = "Try to login with empty fields")
     public void LoginWithEmptyFieldsGmail()
@@ -59,6 +64,7 @@ public class GmailLoginTests {
         GmailLoginPage loginPage = PageFactory.initElements(_webDriver,GmailLoginPage.class);
         loginPage.open();
         loginPage.loginAs("").withPassword("").loginExpectingFailure();
-        Assert.assertEquals("Enter your email address.", loginPage.getErrorMessageForEmail());
+
+        assertEquals("Enter your email address.", loginPage.getErrorMessageForEmail());
     }
 }

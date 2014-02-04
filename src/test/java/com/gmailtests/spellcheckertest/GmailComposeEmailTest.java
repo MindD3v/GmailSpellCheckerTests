@@ -1,21 +1,18 @@
 package com.gmailtests.spellcheckertest;
 
 import com.gmailtests.pageobjects.ComposeEmailPage;
-import com.gmailtests.pageobjects.InboxPage;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
 
 public class GmailComposeEmailTest extends GmailLoggedInSetup {
     @Test(description = "Compose basic email")
     public void composeBasicEmail()
     {
-        InboxPage inboxPage = PageFactory.initElements(getWebDriver(),InboxPage.class);
-        List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
+        List<ComposeEmailPage> composeEmailPages = this.getInboxPage().composeNewEmail();
 
         assertThat(composeEmailPages.size(),equalTo(1));
 
@@ -30,11 +27,10 @@ public class GmailComposeEmailTest extends GmailLoggedInSetup {
     @Test(description = "Compose multiple email")
     public void composeMultipleEmail()
     {
-        InboxPage inboxPage = PageFactory.initElements(getWebDriver(),InboxPage.class);
-        inboxPage.composeNewEmail();
-        inboxPage.composeNewEmail();
+        this.getInboxPage().composeNewEmail();
+        this.getInboxPage().composeNewEmail();
 
-        List<ComposeEmailPage> composeEmailPages = inboxPage.getComposeEmailPages();
+        List<ComposeEmailPage> composeEmailPages = this.getInboxPage().getComposeEmailPages();
         assertThat(composeEmailPages.size(),equalTo(2));
 
         ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
@@ -55,8 +51,7 @@ public class GmailComposeEmailTest extends GmailLoggedInSetup {
     @Test(description = "Compose Email With Many Recipients")
      public void composeEmailWithManyRecipients()
     {
-        InboxPage inboxPage = PageFactory.initElements(getWebDriver(),InboxPage.class);
-        List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
+        List<ComposeEmailPage> composeEmailPages = this.getInboxPage().composeNewEmail();
 
         assertThat(composeEmailPages.size(),equalTo(1));
 
@@ -71,8 +66,7 @@ public class GmailComposeEmailTest extends GmailLoggedInSetup {
     @Test(description = "Compose Email With Many Recipients In a Single Line")
     public void composeEmailWithManyRecipientsInASingleLine()
     {
-        InboxPage inboxPage = PageFactory.initElements(getWebDriver(),InboxPage.class);
-        List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
+        List<ComposeEmailPage> composeEmailPages = this.getInboxPage().composeNewEmail();
 
         assertThat(composeEmailPages.size(),equalTo(1));
 

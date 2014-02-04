@@ -1,15 +1,13 @@
 package com.gmailtests.spellcheckertest;
 
 import com.gmailtests.pageobjects.ComposeEmailPage;
-import com.gmailtests.pageobjects.InboxPage;
 import com.gmailtests.pageobjects.SpellingErrorsList;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
 
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.equalTo;
 
 public class GmailSpellCheckerTest extends GmailLoggedInSetup {
     @Test(description = "Get to the spellchecker menu")
@@ -54,8 +52,7 @@ public class GmailSpellCheckerTest extends GmailLoggedInSetup {
     }
     private ComposeEmailPage setupForOneEmail()
     {
-        InboxPage inboxPage = PageFactory.initElements(getWebDriver(),InboxPage.class);
-        List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
+        List<ComposeEmailPage> composeEmailPages = this.getInboxPage().composeNewEmail();
 
         assertThat(composeEmailPages.size(), equalTo(1));
 

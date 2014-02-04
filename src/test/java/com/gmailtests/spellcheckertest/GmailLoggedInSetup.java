@@ -24,6 +24,5 @@ public abstract class GmailLoggedInSetup extends SauceLabsSetup {
         GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(), GmailLoginPage.class);
         loginPage.open();
         loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
-        //test #3
     }
 }

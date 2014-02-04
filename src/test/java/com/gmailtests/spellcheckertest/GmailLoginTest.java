@@ -10,7 +10,7 @@ import static org.hamcrest.Matchers.*;
 public class GmailLoginTest extends SauceLabsSetup {
 
     @Test(description="Launches gmail login")
-    public void LaunchGmailLoginTest()
+    public void launchGmailLoginTest()
     {
         GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(),GmailLoginPage.class);
         loginPage.open();
@@ -18,7 +18,7 @@ public class GmailLoginTest extends SauceLabsSetup {
         assertThat("Is at login page",getWebDriver().getTitle(),equalTo("Gmail"));
     }
     @Test(description = "Login into gmail")
-    public void LoginAsValidUserGmail()
+    public void loginAsValidUserGmail()
     {
         GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(),GmailLoginPage.class);
         loginPage.open();
@@ -27,7 +27,7 @@ public class GmailLoginTest extends SauceLabsSetup {
         assertThat("User logged in",getWebDriver().getTitle(),equalTo("Inbox - seleniumtest.hinojosa@gmail.com - Gmail"));
     }
     @Test(description = "Try to login with invalid user")
-    public void LoginAsInvalidUserGmail()
+    public void loginAsInvalidUserGmail()
     {
         GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(),GmailLoginPage.class);
         loginPage.open();
@@ -36,7 +36,7 @@ public class GmailLoginTest extends SauceLabsSetup {
         assertThat("User login with invalid username",loginPage.getErrorMessageForPassword(),equalTo("The email or password you entered is incorrect. ?"));
     }
     @Test(description = "Try to login with invalid password")
-    public void LoginAsInvalidPasswordGmail()
+    public void loginAsInvalidPasswordGmail()
     {
         GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(),GmailLoginPage.class);
         loginPage.open();
@@ -45,7 +45,7 @@ public class GmailLoginTest extends SauceLabsSetup {
         assertThat("User login with invalid password",loginPage.getErrorMessageForPassword(),equalTo("The email or password you entered is incorrect. ?"));
     }
     @Test(description = "Try to login with empty fields")
-    public void LoginWithEmptyFieldsGmail()
+    public void loginWithEmptyFieldsGmail()
     {
         GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(),GmailLoginPage.class);
         loginPage.open();

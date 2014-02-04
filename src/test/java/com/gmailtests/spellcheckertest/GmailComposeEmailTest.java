@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.*;
 
 public class GmailComposeEmailTest extends GmailLoggedInSetup {
     @Test(description = "Compose basic email")
-    public void ComposeBasicEmail()
+    public void composeBasicEmail()
     {
         InboxPage inboxPage = PageFactory.initElements(getWebDriver(),InboxPage.class);
         List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
@@ -28,7 +28,7 @@ public class GmailComposeEmailTest extends GmailLoggedInSetup {
 
     }
     @Test(description = "Compose multiple email")
-    public void ComposeMultipleEmail()
+    public void composeMultipleEmail()
     {
         InboxPage inboxPage = PageFactory.initElements(getWebDriver(),InboxPage.class);
         inboxPage.composeNewEmail();
@@ -53,7 +53,7 @@ public class GmailComposeEmailTest extends GmailLoggedInSetup {
         assertThat(secondComposeEmailPage.getEmailBody(),  equalTo("This is a tests for Serch"));
     }
     @Test(description = "Compose Email With Many Recipients")
-         public void ComposeEmailWithManyRecipients()
+     public void composeEmailWithManyRecipients()
     {
         InboxPage inboxPage = PageFactory.initElements(getWebDriver(),InboxPage.class);
         List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();
@@ -69,7 +69,7 @@ public class GmailComposeEmailTest extends GmailLoggedInSetup {
 
     }
     @Test(description = "Compose Email With Many Recipients In a Single Line")
-    public void ComposeEmailWithManyRecipientsInASingleLine()
+    public void composeEmailWithManyRecipientsInASingleLine()
     {
         InboxPage inboxPage = PageFactory.initElements(getWebDriver(),InboxPage.class);
         List<ComposeEmailPage> composeEmailPages = inboxPage.composeNewEmail();

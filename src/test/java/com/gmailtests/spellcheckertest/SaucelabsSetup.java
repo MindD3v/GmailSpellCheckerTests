@@ -48,7 +48,7 @@ public abstract class SauceLabsSetup implements SauceOnDemandSessionIdProvider, 
         return sessionId.get();
     }
     @AfterMethod
-    protected void CleanUp() {
+    protected void cleanUp() {
         getWebDriver().quit();
     }
     @Override

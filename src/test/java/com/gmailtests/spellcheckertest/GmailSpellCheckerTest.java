@@ -2,6 +2,7 @@ package com.gmailtests.spellcheckertest;
 
 import com.gmailtests.pageobjects.ComposeEmailPage;
 import com.gmailtests.pageobjects.InboxPage;
+import com.gmailtests.pageobjects.SpellingErrorsList;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.Test;
 
@@ -24,32 +25,32 @@ public class GmailSpellCheckerTest extends GmailLoggedInSetup {
         ComposeEmailPage composeEmailPage = setupForOneEmail();
 
         composeEmailPage.to("jhinojosa@nearsoft.com").withSubject("Testing").withBody("This is a testsss");
-        List<String> spellingErrors = composeEmailPage.clickMoreOptionsMenu().clickCheckSpelling().getSpellingErrors();
+        SpellingErrorsList spellingErrors = composeEmailPage.clickMoreOptionsMenu().clickCheckSpelling().getSpellingErrorsList();
 
-        assertThat(spellingErrors.size(), equalTo(1));
+        assertThat(spellingErrors.getSpellingErrors().size(), equalTo(1));
     }
     @Test(description = "Find Multiple Spelling Errors On Email")
     public void findMultipleSpellingErrorsOnEmail() throws InterruptedException {
         ComposeEmailPage composeEmailPage = setupForOneEmail();
 
         composeEmailPage.to("jhinojosa@nearsoft.com").withSubject("Testing").withBody("This is a testsss for my friendz");
-        List<String> spellingErrors = composeEmailPage.clickMoreOptionsMenu().clickCheckSpelling().getSpellingErrors();
+        SpellingErrorsList spellingErrors = composeEmailPage.clickMoreOptionsMenu().clickCheckSpelling().getSpellingErrorsList();
 
-        assertThat(spellingErrors.size(), equalTo(2));
+        assertThat(spellingErrors.getSpellingErrors().size(), equalTo(2));
     }
     @Test(description = "Find Spelling Errors On Email And Recheck")
     public void findSpellingErrorsOnEmailAndRecheck() throws InterruptedException {
         ComposeEmailPage composeEmailPage = setupForOneEmail();
 
         composeEmailPage.to("jhinojosa@nearsoft.com").withSubject("Testing").withBody("This is a testsss,");
-        List<String> spellingErrors = composeEmailPage.clickMoreOptionsMenu().clickCheckSpelling().getSpellingErrors();
+        SpellingErrorsList spellingErrors = composeEmailPage.clickMoreOptionsMenu().clickCheckSpelling().getSpellingErrorsList();
 
-        assertThat(spellingErrors.size(), equalTo(1));
+        assertThat(spellingErrors.getSpellingErrors().size(), equalTo(1));
 
         composeEmailPage.withBody(" for my friendz");
-        spellingErrors = composeEmailPage.clickReCheckSpelling().getSpellingErrors();
+        spellingErrors = composeEmailPage.clickReCheckSpelling().getSpellingErrorsList();
 
-        assertThat(spellingErrors.size(), equalTo(2));
+        assertThat(spellingErrors.getSpellingErrors().size(), equalTo(2));
     }
     private ComposeEmailPage setupForOneEmail()
     {

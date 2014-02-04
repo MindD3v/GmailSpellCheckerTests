@@ -5,7 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ComposeEmailPage extends BasePageObject {
@@ -105,8 +104,8 @@ public class ComposeEmailPage extends BasePageObject {
         return _webDriver.findElement(_subjectLocator);
     }
 
-    public List<String> getSpellingErrors() throws InterruptedException {
-        List<String> spellingErrorsStrings = new ArrayList<String>();
+    public SpellingErrorsList getSpellingErrorsList() throws InterruptedException {
+        SpellingErrorsList spellingErrorsList = new SpellingErrorsList();
         WebElement frame = _webDriver.findElement(_frameLocator);
         _webDriver.switchTo().frame(frame);
         WebElement body = _webDriver.findElement(_bodyLocator);
@@ -118,12 +117,12 @@ public class ComposeEmailPage extends BasePageObject {
 
         for(WebElement spellingError : spellingErrors)
         {
-            spellingErrorsStrings.add(spellingError.getText());
+            spellingErrorsList.add(spellingError.getText());
         }
         _webDriver.switchTo().defaultContent();
 
 
-        return spellingErrorsStrings;
+        return spellingErrorsList;
     }
 
     public class ComposeEmailMenu {

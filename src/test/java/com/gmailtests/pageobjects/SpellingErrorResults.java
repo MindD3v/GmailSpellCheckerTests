@@ -3,19 +3,23 @@ package com.gmailtests.pageobjects;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SpellingErrorsList {
+public class SpellingErrorResults {
     private List<String> _spellingErrors;
 
-    public SpellingErrorsList()
+    public SpellingErrorResults()
     {
         _spellingErrors = new ArrayList<String>();
     }
-    public List<String> getSpellingErrors()
-    {
-        return _spellingErrors;
-    }
+//    public List<String> getSpellingErrors()
+//    {
+//        return _spellingErrors;
+//    }
     public void add(String error)
     {
         _spellingErrors.add(error);
+    }
+    public int getTotalSpellingErrorCount()
+    {
+        return _spellingErrors.size();
     }
 }

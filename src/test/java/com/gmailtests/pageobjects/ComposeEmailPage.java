@@ -104,8 +104,8 @@ public class ComposeEmailPage extends BasePageObject {
         return _webDriver.findElement(_subjectLocator);
     }
 
-    public SpellingErrorsList getSpellingErrorsList() throws InterruptedException {
-        SpellingErrorsList spellingErrorsList = new SpellingErrorsList();
+    public SpellingErrorResults getSpellingErrorsList() throws InterruptedException {
+        SpellingErrorResults spellingErrorsList = new SpellingErrorResults();
         WebElement frame = _webDriver.findElement(_frameLocator);
         _webDriver.switchTo().frame(frame);
         WebElement body = _webDriver.findElement(_bodyLocator);

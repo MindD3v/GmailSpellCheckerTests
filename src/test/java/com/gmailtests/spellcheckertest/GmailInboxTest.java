@@ -25,6 +25,5 @@ public class GmailInboxTest extends GmailLoggedInSetup {
 
         assertThat(composeEmailPages.size(), equalTo(2));
         assertThat(composeEmailPages.get(0).getId(), not(equalTo(composeEmailPages.get(1).getId())));
-        //testing develop branch
     }
 }

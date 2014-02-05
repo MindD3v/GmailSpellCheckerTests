@@ -55,11 +55,8 @@ public abstract class SauceLabsSetup implements SauceOnDemandSessionIdProvider, 
     public SauceOnDemandAuthentication getAuthentication() {
         return authentication;
     }
-    //    @BeforeMethod
+//    @BeforeMethod
 //    public void setUp() {
-//        _webDriver = new FirefoxDriver();
-//        GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(), GmailLoginPage.class);
-//        loginPage.open();
-//        loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
+//        _webDriver.set(new FirefoxDriver());
 //    }
 }

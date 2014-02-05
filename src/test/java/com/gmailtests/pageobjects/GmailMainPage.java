@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InboxPage extends BasePageObject {
+public class GmailMainPage extends BasePageObject {
     private List<ComposeEmailPage> _composeEmailPages;
 
     public List<ComposeEmailPage> getComposeEmailPages()
@@ -21,7 +21,13 @@ public class InboxPage extends BasePageObject {
     @FindBy(using =".nM .T-I.J-J5-Ji.T-I-KE.L3",how = How.CSS)
     private WebElement _compose;
 
-    public InboxPage(WebDriver webDriver) {
+    @FindBy(using = "q",how = How.NAME)
+    private WebElement _filter;
+
+    @FindBy(using = "gbqfb")
+    private WebElement _search;
+
+    public GmailMainPage(WebDriver webDriver) {
         super(webDriver);
         _composeEmailPages = new ArrayList<ComposeEmailPage>();
     }
@@ -41,5 +47,25 @@ public class InboxPage extends BasePageObject {
             ComposeEmailPage composeEmailPage = new ComposeEmailPage(_webDriver,w.getAttribute("aria-labelledby"));
             _composeEmailPages.add(composeEmailPage);
         }
+    }
+
+    public GmailMainPage applyFilter(String filter) throws InterruptedException {
+        _filter.sendKeys(filter);
+        Thread.sleep(3000);
+        return this;
+    }
+
+    public List<Email> getEmails() throws InterruptedException {
+        _search.click();
+        Thread.sleep(2000);
+        List<Email> emailList = new ArrayList<Email>();
+        List<WebElement> emails = _webDriver.findElements(By.cssSelector(".zA"));
+
+        for(WebElement emailWebElement : emails)
+        {
+            emailList.add(Email.BuildEmailFormWebElement(emailWebElement));
+        }
+
+        return emailList;
     }
 }

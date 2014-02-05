@@ -1,7 +1,7 @@
 package com.gmailtests.spellcheckertest;
 
 import com.gmailtests.pageobjects.GmailLoginPage;
-import com.gmailtests.pageobjects.InboxPage;
+import com.gmailtests.pageobjects.GmailMainPage;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
@@ -11,7 +11,7 @@ import java.lang.reflect.Method;
 
 public abstract class GmailLoggedInSetup extends SauceLabsSetup {
 
-    private InboxPage _inboxPage;
+    private GmailMainPage _gmailMainPage;
 
     @Parameters({"username", "key", "os", "browser", "browserVersion"})
     @BeforeMethod
@@ -26,20 +26,20 @@ public abstract class GmailLoggedInSetup extends SauceLabsSetup {
 
         GmailLoginPage gmailLoginPage =PageFactory.initElements(getWebDriver(), GmailLoginPage.class);
         gmailLoginPage.open();
-        _inboxPage = gmailLoginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
+        _gmailMainPage = gmailLoginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
     }
 
-    protected InboxPage getInboxPage()
+    protected GmailMainPage getGmailMainPage()
     {
-        if(_inboxPage != null)
+        if(_gmailMainPage != null)
         {
-            return _inboxPage;
+            return _gmailMainPage;
         }
 
         GmailLoginPage gmailLoginPage =PageFactory.initElements(getWebDriver(), GmailLoginPage.class);
         gmailLoginPage.open();
-        _inboxPage = gmailLoginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
+        _gmailMainPage = gmailLoginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
 
-        return _inboxPage;
+        return _gmailMainPage;
     }
 }

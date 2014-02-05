@@ -12,7 +12,7 @@ public class GmailComposeEmailTest extends GmailLoggedInSetup {
     @Test(description = "Compose basic email")
     public void composeBasicEmail()
     {
-        List<ComposeEmailPage> composeEmailPages = this.getInboxPage().composeNewEmail();
+        List<ComposeEmailPage> composeEmailPages = this.getGmailMainPage().composeNewEmail();
 
         assertThat(composeEmailPages.size(),equalTo(1));
 
@@ -27,10 +27,10 @@ public class GmailComposeEmailTest extends GmailLoggedInSetup {
     @Test(description = "Compose multiple email")
     public void composeMultipleEmail()
     {
-        this.getInboxPage().composeNewEmail();
-        this.getInboxPage().composeNewEmail();
+        this.getGmailMainPage().composeNewEmail();
+        this.getGmailMainPage().composeNewEmail();
 
-        List<ComposeEmailPage> composeEmailPages = this.getInboxPage().getComposeEmailPages();
+        List<ComposeEmailPage> composeEmailPages = this.getGmailMainPage().getComposeEmailPages();
         assertThat(composeEmailPages.size(),equalTo(2));
 
         ComposeEmailPage composeEmailPage = composeEmailPages.get(0);
@@ -51,7 +51,7 @@ public class GmailComposeEmailTest extends GmailLoggedInSetup {
     @Test(description = "Compose Email With Many Recipients")
      public void composeEmailWithManyRecipients()
     {
-        List<ComposeEmailPage> composeEmailPages = this.getInboxPage().composeNewEmail();
+        List<ComposeEmailPage> composeEmailPages = this.getGmailMainPage().composeNewEmail();
 
         assertThat(composeEmailPages.size(),equalTo(1));
 
@@ -66,7 +66,7 @@ public class GmailComposeEmailTest extends GmailLoggedInSetup {
     @Test(description = "Compose Email With Many Recipients In a Single Line")
     public void composeEmailWithManyRecipientsInASingleLine()
     {
-        List<ComposeEmailPage> composeEmailPages = this.getInboxPage().composeNewEmail();
+        List<ComposeEmailPage> composeEmailPages = this.getGmailMainPage().composeNewEmail();
 
         assertThat(composeEmailPages.size(),equalTo(1));
 

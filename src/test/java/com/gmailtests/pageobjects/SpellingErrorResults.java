@@ -10,10 +10,6 @@ public class SpellingErrorResults {
     {
         _spellingErrors = new ArrayList<String>();
     }
-//    public List<String> getSpellingErrors()
-//    {
-//        return _spellingErrors;
-//    }
     public void add(String error)
     {
         _spellingErrors.add(error);

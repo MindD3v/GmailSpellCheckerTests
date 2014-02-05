@@ -34,10 +34,10 @@ public class GmailLoginPage extends BasePageObject {
         return this;
     }
 
-    public InboxPage login() {
+    public GmailMainPage login() {
         _signIn.click();
         _webDriverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".nM")));
-        return PageFactory.initElements(_webDriver, InboxPage.class);
+        return PageFactory.initElements(_webDriver, GmailMainPage.class);
     }
     public GmailLoginPage loginExpectingFailure()
     {

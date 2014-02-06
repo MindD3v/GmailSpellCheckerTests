@@ -1,5 +1,6 @@
 package com.gmailtests.pageobjects;
 
+import com.gmailtests.data.SpellingErrorResults;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,8 +28,6 @@ public class ComposeEmailPage extends BasePageObject {
     public ComposeEmailPage(WebDriver webDriver, String id){
         super(webDriver);
         _id = "div[aria-labelledby=\""+id+"\"]";
-        _webDriverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(_id + " .vO")));
-
         initializeLocators();
     }
     private void initializeLocators(){

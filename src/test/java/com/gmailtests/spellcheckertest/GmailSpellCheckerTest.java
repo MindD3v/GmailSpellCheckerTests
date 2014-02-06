@@ -1,7 +1,7 @@
 package com.gmailtests.spellcheckertest;
 
 import com.gmailtests.pageobjects.ComposeEmailPage;
-import com.gmailtests.pageobjects.SpellingErrorResults;
+import com.gmailtests.data.SpellingErrorResults;
 import org.testng.annotations.Test;
 
 import java.util.List;

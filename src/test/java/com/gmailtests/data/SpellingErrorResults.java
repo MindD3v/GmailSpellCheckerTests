@@ -1,4 +1,4 @@
-package com.gmailtests.pageobjects;
+package com.gmailtests.data;
 
 import java.util.ArrayList;
 import java.util.List;

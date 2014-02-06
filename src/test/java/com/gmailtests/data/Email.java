@@ -1,4 +1,4 @@
-package com.gmailtests.pageobjects;
+package com.gmailtests.data;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

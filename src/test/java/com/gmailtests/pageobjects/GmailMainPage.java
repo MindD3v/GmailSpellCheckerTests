@@ -1,5 +1,6 @@
 package com.gmailtests.pageobjects;
 
+import com.gmailtests.data.Email;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,7 +35,7 @@ public class GmailMainPage extends BasePageObject {
     public List<ComposeEmailPage> composeNewEmail()
     {
         _compose.click();
-        _webDriverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".nH .Hd")));
+        _webDriverWait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".nH .Hd")));
         getComposeNewEmailWindows();
         return _composeEmailPages;
     }

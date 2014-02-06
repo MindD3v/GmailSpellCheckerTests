@@ -1,6 +1,6 @@
 package com.gmailtests.spellcheckertest;
 
-import com.gmailtests.pageobjects.Email;
+import com.gmailtests.data.Email;
 import org.testng.annotations.Test;
 
 import java.util.List;
@@ -23,6 +23,12 @@ public class GmailEmailFilterTest extends GmailLoggedInSetup {
     @Test(description="Get Unread emails")
     public void getUnreadEmails() throws InterruptedException {
         List emailList = getGmailMainPage().applyFilter("is:unread").getEmails();
+
+        assertThat((List<Object>)emailList, hasItem(hasProperty("_isRead", is(false))));
+    }
+    @Test(description="Get Unread emails")
+    public void getReadEmails() throws InterruptedException {
+        List emailList = getGmailMainPage().applyFilter("is:inbox is:read").getEmails();
 
         assertThat((List<Object>)emailList, hasItem(hasProperty("_isRead", is(true))));
     }

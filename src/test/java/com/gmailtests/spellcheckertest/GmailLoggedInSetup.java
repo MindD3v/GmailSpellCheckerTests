@@ -2,7 +2,6 @@ package com.gmailtests.spellcheckertest;
 
 import com.gmailtests.pageobjects.GmailLoginPage;
 import com.gmailtests.pageobjects.GmailMainPage;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
@@ -24,7 +23,7 @@ public abstract class GmailLoggedInSetup extends SauceLabsSetup {
 
         super.setUp(username,key,os,browser,browserVersion,method);
 
-        GmailLoginPage gmailLoginPage = PageFactory.initElements(getWebDriver(), GmailLoginPage.class);
+        GmailLoginPage gmailLoginPage = new GmailLoginPage(_webDriver.get());
         gmailLoginPage.open();
         _gmailMainPage = gmailLoginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
     }
@@ -36,7 +35,7 @@ public abstract class GmailLoggedInSetup extends SauceLabsSetup {
             return _gmailMainPage;
         }
 
-        GmailLoginPage gmailLoginPage = PageFactory.initElements(getWebDriver(), GmailLoginPage.class);
+        GmailLoginPage gmailLoginPage = new GmailLoginPage(_webDriver.get());
         gmailLoginPage.open();
         _gmailMainPage = gmailLoginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
 

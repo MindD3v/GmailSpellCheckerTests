@@ -24,7 +24,7 @@ public abstract class GmailLoggedInSetup extends SauceLabsSetup {
 
         super.setUp(username,key,os,browser,browserVersion,method);
 
-        GmailLoginPage gmailLoginPage =PageFactory.initElements(getWebDriver(), GmailLoginPage.class);
+        GmailLoginPage gmailLoginPage = PageFactory.initElements(getWebDriver(), GmailLoginPage.class);
         gmailLoginPage.open();
         _gmailMainPage = gmailLoginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
     }
@@ -36,7 +36,7 @@ public abstract class GmailLoggedInSetup extends SauceLabsSetup {
             return _gmailMainPage;
         }
 
-        GmailLoginPage gmailLoginPage =PageFactory.initElements(getWebDriver(), GmailLoginPage.class);
+        GmailLoginPage gmailLoginPage = PageFactory.initElements(getWebDriver(), GmailLoginPage.class);
         gmailLoginPage.open();
         _gmailMainPage = gmailLoginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
 

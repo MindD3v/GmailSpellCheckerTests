@@ -1,10 +1,8 @@
 package com.gmailtests.pageobjects;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class GmailLoginPage extends BasePageObject {
@@ -24,6 +22,12 @@ public class GmailLoginPage extends BasePageObject {
         super(webDriver);
     }
 
+    @Override
+    public GmailLoginPage waitForPageToLoad() {
+        _webDriverWait.until(ExpectedConditions.titleIs("Gmail"));
+        return this;
+    }
+
     public GmailLoginPage loginAs(String email) {
         _email.sendKeys(email);
         return this;
@@ -36,8 +40,8 @@ public class GmailLoginPage extends BasePageObject {
 
     public GmailMainPage login() {
         _signIn.click();
-        _webDriverWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".nM")));
-        return PageFactory.initElements(_webDriver, GmailMainPage.class);
+        //waitForElement(By.cssSelector(".nM"));
+        return new GmailMainPage(_webDriver);
     }
     public GmailLoginPage loginExpectingFailure()
     {
@@ -45,8 +49,9 @@ public class GmailLoginPage extends BasePageObject {
         return this;
     }
 
-    public void open() {
+    public GmailLoginPage open() {
         _webDriver.get("https://accounts.google.com/ServiceLogin?service=mail&continue=https://mail.google.com/mail/");
+        return this;
     }
 
     public String getErrorMessageForPassword() {

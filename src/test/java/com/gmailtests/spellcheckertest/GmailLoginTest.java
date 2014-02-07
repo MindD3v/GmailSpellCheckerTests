@@ -13,7 +13,7 @@ public class GmailLoginTest extends SauceLabsSetup {
     public void launchGmailLoginTest()
     {
         GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(),GmailLoginPage.class);
-        loginPage.open();
+        loginPage.open().waitForPageToLoad();
 
         assertThat("Is at login page",getWebDriver().getTitle(),equalTo("Gmail"));
     }
@@ -21,7 +21,7 @@ public class GmailLoginTest extends SauceLabsSetup {
     public void loginAsValidUserGmail()
     {
         GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(),GmailLoginPage.class);
-        loginPage.open();
+        loginPage.open().waitForPageToLoad();
         loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb.").login();
 
         assertThat("User logged in",getWebDriver().getTitle(),equalTo("Inbox - seleniumtest.hinojosa@gmail.com - Gmail"));
@@ -30,7 +30,7 @@ public class GmailLoginTest extends SauceLabsSetup {
     public void loginAsInvalidUserGmail()
     {
         GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(),GmailLoginPage.class);
-        loginPage.open();
+        loginPage.open().waitForPageToLoad();
         loginPage.loginAs("seleniumtest.hinojosa50@gmail.com").withPassword("95867bb.").loginExpectingFailure();
 
         assertThat("User login with invalid username",loginPage.getErrorMessageForPassword(),equalTo("The email or password you entered is incorrect. ?"));
@@ -39,7 +39,7 @@ public class GmailLoginTest extends SauceLabsSetup {
     public void loginAsInvalidPasswordGmail()
     {
         GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(),GmailLoginPage.class);
-        loginPage.open();
+        loginPage.open().waitForPageToLoad();
         loginPage.loginAs("seleniumtest.hinojosa@gmail.com").withPassword("95867bb..").loginExpectingFailure();
 
         assertThat("User login with invalid password",loginPage.getErrorMessageForPassword(),equalTo("The email or password you entered is incorrect. ?"));
@@ -48,7 +48,7 @@ public class GmailLoginTest extends SauceLabsSetup {
     public void loginWithEmptyFieldsGmail()
     {
         GmailLoginPage loginPage = PageFactory.initElements(getWebDriver(),GmailLoginPage.class);
-        loginPage.open();
+        loginPage.open().waitForPageToLoad();
         loginPage.loginAs("").withPassword("").loginExpectingFailure();
 
         assertThat("User login with empty fields",loginPage.getErrorMessageForEmail(),equalTo("Enter your email address."));

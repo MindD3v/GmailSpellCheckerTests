@@ -52,7 +52,7 @@ public class GmailSpellCheckerTest extends GmailLoggedInSetup {
     }
     private ComposeEmailPage setupForOneEmail()
     {
-        List<ComposeEmailPage> composeEmailPages = this.getGmailMainPage().composeNewEmail();
+        List<ComposeEmailPage> composeEmailPages = this.getGmailMainPage().waitForPageToLoad().composeNewEmail();
 
         assertThat(composeEmailPages.size(), equalTo(1));
 

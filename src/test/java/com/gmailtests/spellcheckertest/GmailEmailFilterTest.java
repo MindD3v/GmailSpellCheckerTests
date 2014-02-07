@@ -11,7 +11,7 @@ import static org.hamcrest.Matchers.*;
 public class GmailEmailFilterTest extends GmailLoggedInSetup {
     @Test(description="Get all email")
     public void getEmails() throws InterruptedException {
-        List<Email> emailList = getGmailMainPage().getEmails();
+        List<Email> emailList = getGmailMainPage().waitForPageToLoad().getEmails();
         assertThat(emailList.size(), equalTo(4));
     }
     @Test(description="Get Filter emails")
@@ -22,13 +22,13 @@ public class GmailEmailFilterTest extends GmailLoggedInSetup {
 
     @Test(description="Get Unread emails")
     public void getUnreadEmails() throws InterruptedException {
-        List emailList = getGmailMainPage().applyFilter("is:unread").getEmails();
+        List emailList = getGmailMainPage().waitForPageToLoad().applyFilter("is:unread").getEmails();
 
         assertThat((List<Object>)emailList, hasItem(hasProperty("_isRead", is(false))));
     }
     @Test(description="Get Unread emails")
     public void getReadEmails() throws InterruptedException {
-        List emailList = getGmailMainPage().applyFilter("is:inbox is:read").getEmails();
+        List emailList = getGmailMainPage().waitForPageToLoad().applyFilter("is:inbox is:read").getEmails();
 
         assertThat((List<Object>)emailList, hasItem(hasProperty("_isRead", is(true))));
     }

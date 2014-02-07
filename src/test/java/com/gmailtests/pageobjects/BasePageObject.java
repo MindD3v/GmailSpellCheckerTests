@@ -10,7 +10,7 @@ public abstract class BasePageObject {
     public BasePageObject(WebDriver webDriver)
     {
         _webDriver = webDriver;
-        _webDriverWait = new WebDriverWait(_webDriver,30);
+        _webDriverWait = new WebDriverWait(_webDriver,90);
     }
 
     public abstract <T extends BasePageObject> T waitForPageToLoad();

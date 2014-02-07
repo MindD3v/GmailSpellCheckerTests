@@ -60,15 +60,14 @@ public class GmailMainPage extends BasePageObject {
 
     public GmailMainPage applyFilter(String filter) throws InterruptedException {
         _filter.sendKeys(filter);
-        Thread.sleep(3000);
-        return this;
+        _search.click();
+        _webDriverWait.until(ExpectedConditions.titleContains("Search results"));
+        return new GmailMainPage(_webDriver);
     }
 
     public List<Email> getEmails() throws InterruptedException {
-        _search.click();
-        Thread.sleep(2000);
         List<Email> emailList = new ArrayList<Email>();
-        List<WebElement> emails = _webDriver.findElements(By.cssSelector(".zA"));
+        List<WebElement> emails = _webDriver.findElements(By.cssSelector(".nH div[role=\"main\"] .zA"));
 
         for(WebElement emailWebElement : emails)
         {
